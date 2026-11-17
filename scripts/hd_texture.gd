@@ -8,6 +8,21 @@ extends Texture2D
 
 static var on := false
 
+# assets_hd names each picture by how it was enlarged : <name>_NB2.png (redrawn with Nano
+# Banana 2, x2nb2.py) or <name>_xBRZ.png (x2xbrz.py). A tile sheet with some NB2 tiles is
+# _NB2. The path of the enlarged picture for res://assets_hd/<name>.png, or that path when
+# there is none.
+
+static func hd_path(path: String) -> String:
+	for suffix in ["_NB2", "_xBRZ"]:
+		var named: String = path.get_basename() + suffix + "." + path.get_extension()
+
+		if ResourceLoader.exists(named):
+			return named
+
+	return path
+
+
 const K := 4.0
 
 var base: Texture2D

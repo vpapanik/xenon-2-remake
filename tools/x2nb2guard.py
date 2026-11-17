@@ -26,7 +26,11 @@ level = FOLDER.split()[-1]
 sheet_path = os.path.join(E, FOLDER, 'xBRZ_tiles.png')
 sheet = Image.open(sheet_path).convert('RGBA')
 remake = os.path.join(E, '..', 'remake', 'assets_hd', 'tiles')
-masked = Image.open(os.path.join(remake, 'S%s_tiles_masked.png' % level)).convert('RGBA')
+
+# the masked sheet as named in assets_hd (_NB2 or _xBRZ by how it was enlarged)
+
+masked_path = next(p for p in (os.path.join(remake, 'S%s_tiles_masked%s.png' % (level, s)) for s in ('', '_NB2', '_xBRZ')) if os.path.exists(p))
+masked = Image.open(masked_path).convert('RGBA')
 screen = Image.open(SHOT).convert('RGB')
 crop = Image.open(CROP).convert('RGB').resize((x1 - x0, y1 - y0), Image.LANCZOS)
 screen.paste(crop, (x0, y0))

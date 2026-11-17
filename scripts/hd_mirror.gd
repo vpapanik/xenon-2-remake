@@ -15,7 +15,7 @@ func source(base: Image, path: String) -> Image:
 
 	# the xBRZ version of a picture loaded from res://assets/..., if there is one
 
-	var large := path.replace("res://assets/", "res://assets_hd/")
+	var large := HD_TEXTURE.hd_path(path.replace("res://assets/", "res://assets_hd/"))
 
 	if ResourceLoader.exists(large):
 		var image: Image = load(large).get_image()

@@ -14,14 +14,14 @@ This project brings it back with love and respect: a faithful remake for modern 
 
 ## Download
 
-Latest release: **[1.0.7](https://github.com/vpapanik/xenon-2-remake/releases/latest)**
+Latest release: **[1.0.8](https://github.com/vpapanik/xenon-2-remake/releases/latest)**
 
 | Platform | File |
 |---|---|
-| Windows 10 or later (x86_64) | [Xenon2Remake-1.0.7-windows-x86_64.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-windows-x86_64.zip) : unzip and run `Xenon2Remake.exe`. Godot 4 no longer runs on Windows 7 or 8, where the online version may still play in the browser |
-| Linux (x86_64) | [Xenon2Remake-1.0.7-linux-x86_64.tar.gz](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-linux-x86_64.tar.gz) : extract and run `./Xenon2Remake.x86_64` |
-| macOS (Apple Silicon and Intel) | [Xenon2Remake-1.0.7-macos-universal.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-macos-universal.zip) : unzip, then the first time right-click `Xenon 2 remake.app` and choose Open, as the app is not signed by Apple (or run `xattr -cr "Xenon 2 remake.app"`) |
-| Web | [Xenon2Remake-1.0.7-web.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-web.zip) : unzip and serve the folder with any web server, then open it in the browser |
+| Windows 10 or later (x86_64) | [Xenon2Remake-1.0.8-windows-x86_64.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.8/Xenon2Remake-1.0.8-windows-x86_64.zip) : unzip and run `Xenon2Remake.exe`. Godot 4 no longer runs on Windows 7 or 8, where the online version may still play in the browser |
+| Linux (x86_64) | [Xenon2Remake-1.0.8-linux-x86_64.tar.gz](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.8/Xenon2Remake-1.0.8-linux-x86_64.tar.gz) : extract and run `./Xenon2Remake.x86_64` |
+| macOS (Apple Silicon and Intel) | [Xenon2Remake-1.0.8-macos-universal.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.8/Xenon2Remake-1.0.8-macos-universal.zip) : unzip, then the first time right-click `Xenon 2 remake.app` and choose Open, as the app is not signed by Apple (or run `xattr -cr "Xenon 2 remake.app"`) |
+| Web | [Xenon2Remake-1.0.8-web.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.8/Xenon2Remake-1.0.8-web.zip) : unzip and serve the folder with any web server, then open it in the browser |
 
 ## The game
 
@@ -72,6 +72,17 @@ ENHANCED also smooths a few small rough edges of the original:
 
 Open the folder in **[Godot 4.7.2](https://godotengine.org/download/)** (standard build) and run it, or export it from *Project > Export* for Windows, Linux or the Web. Ready builds are on the [Releases](https://github.com/vpapanik/xenon-2-remake/releases) page.
 
+## The graphics, and how to help
+
+`assets` holds the original pictures of the game, pixel for pixel. `assets_hd` holds the same pictures 4 times larger for ENHANCED, and each name says how it was enlarged:
+
+- `<name>_NB2.png` : redrawn with the Nano Banana 2 image model and checked frame by frame against the original: the guardians, the ship and its weapons, the items, the logos, the Amiga backgrounds, the shopkeeper and many enemies
+- `<name>_xBRZ.png` : enlarged automatically with the xBRZ filter, faithful but still a little blocky
+
+A tile sheet with some redrawn tiles is named `_NB2`. The game picks whichever of the two is there, so a picture can be replaced without touching the code.
+
+If you would like to improve one of the remaining `_xBRZ` pictures, you are very welcome: draw it 4 times the size of the original in `assets`, with the same frames in the same places, the same colours and a transparent background, save it as `<name>_NB2.png` in place of the `_xBRZ` one (delete that one) and open a pull request with a before and after picture. Please keep to the look of the original game.
+
 ## Controls
 
 | Key | Action |
@@ -100,3 +111,5 @@ On phones and tablets the browser version shows touch controls, without text. In
 ## Disclaimer
 
 This is a free, non-commercial fan project, made out of love for the original game. It is not affiliated with, endorsed by or connected in any way to The Bitmap Brothers, Image Works, [Mirrorsoft](https://en.wikipedia.org/wiki/Mirrorsoft), Bomb the Bass, David Whittaker or any current owner of Xenon 2: Megablast. All names, trademarks, graphics, music and other material of the original game belong to their respective owners. Nothing here is for sale.
+
+![The guardians of Xenon 2 and their minions](images/poster_guardians.png)

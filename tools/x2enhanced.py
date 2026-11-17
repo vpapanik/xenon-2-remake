@@ -40,13 +40,27 @@ count = 0
 layout = {}
 
 
+def hd_file(path):
+
+    # the xBRZ picture of assets_hd : as x2xbrz.py writes it, or named _xBRZ by x2nb2.py (an
+    # _NB2 one only when no xBRZ one is left, so run this right after x2xbrz.py)
+
+    stem = os.path.join(HD, path)[:-len('.png')]
+
+    for suffix in ('', '_xBRZ', '_NB2'):
+        if os.path.exists(stem + suffix + '.png'):
+            return stem + suffix + '.png'
+
+    return os.path.join(HD, path)
+
+
 def sheet(paths, folder, name):
 
     # the pictures (paths under assets) in a grid, and the same grid from assets_hd
 
     global count
     sd = [Image.open(os.path.join(SD, p)).convert('RGBA') for p in paths]
-    hd = [Image.open(os.path.join(HD, p)).convert('RGBA') for p in paths]
+    hd = [Image.open(hd_file(p)).convert('RGBA') for p in paths]
     k = hd[0].width // sd[0].width
     columns = math.ceil(math.sqrt(len(sd)))
     rows = math.ceil(len(sd) / columns)
@@ -79,7 +93,7 @@ def single(path, folder, name):
     global count
     os.makedirs(folder, exist_ok=True)
     shutil.copyfile(os.path.join(SD, path), os.path.join(folder, 'BMP_' + name + '.png'))
-    shutil.copyfile(os.path.join(HD, path), os.path.join(folder, 'xBRZ_' + name + '.png'))
+    shutil.copyfile(hd_file(path), os.path.join(folder, 'xBRZ_' + name + '.png'))
     layout[os.path.relpath(os.path.join(folder, name), OUT).replace(os.sep, '/')] = {'single': path}
     count += 1
 

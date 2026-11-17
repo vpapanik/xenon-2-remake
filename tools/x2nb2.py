@@ -11,6 +11,11 @@ is kept, so a background the AI drew around the frames is cut away.
 Run it after x2xbrz.py and x2enhanced.py (x2xbrz.py writes assets_hd again from the
 originals). Then the project needs an import.
 
+assets_hd names each picture by how it was enlarged : a picture written here becomes
+<name>_NB2.png (a tile sheet with some NB2 tiles too), and at the end every picture still
+without a suffix (as x2xbrz.py writes them) becomes <name>_xBRZ.png. Run again, it reads
+whichever of <name>.png, <name>_NB2.png, <name>_xBRZ.png is there.
+
 Usage : python x2nb2.py <remake folder> <enhanced folder>
 """
 
@@ -35,6 +40,55 @@ ENHANCED = sys.argv[2]
 HD = os.path.join(REMAKE, 'assets_hd')
 layout = json.load(open(os.path.join(ENHANCED, 'layout.json')))
 done = 0
+SUFFIXES = ('_NB2', '_xBRZ')
+
+
+def variants(path):
+
+    # a picture of assets_hd as x2xbrz.py writes it, and as named by how it was enlarged
+
+    stem = path[:-len('.png')]
+    return [path] + [stem + s + '.png' for s in SUFFIXES]
+
+
+def resolve(path):
+    for v in variants(path):
+        if os.path.exists(v):
+            return v
+
+    return path
+
+
+def remove(path):
+    for p in (path, path + '.import'):
+        if os.path.exists(p):
+            os.remove(p)
+
+
+def written(path):
+
+    # where a picture redrawn by NB2 goes : <name>_NB2.png, the other versions removed
+
+    out = path[:-len('.png')] + '_NB2.png'
+
+    for v in variants(path):
+        if v != out:
+            remove(v)
+
+    return out
+
+
+def plain(name):
+    return name.endswith('.png') and not name[:-len('.png')].endswith(SUFFIXES)
+
+
+# a fresh x2xbrz.py output (pictures without a suffix) replaces the named ones of a run before
+
+for folder, dirs, files in os.walk(HD):
+    for file in files:
+        if plain(file):
+            for v in variants(os.path.join(folder, file))[1:]:
+                remove(v)
 
 
 def keep_alpha(new, old):
@@ -124,9 +178,11 @@ for folder, dirs, files in os.walk(ENHANCED):
             target = os.path.join(HD, entry['single'])
 
             if target.endswith('_tiles.png') or key in XBRZ_ALPHA:
-                keep_alpha(nb2, Image.open(target)).save(target)
+                picture = keep_alpha(nb2, Image.open(resolve(target)))
             else:
-                own_alpha(nb2, xbrz).save(target)
+                picture = own_alpha(nb2, xbrz)
+
+            picture.save(written(target))
 
             done += 1
 
@@ -139,7 +195,7 @@ for folder, dirs, files in os.walk(ENHANCED):
 
                 for extra in ('_tiles_masked.png', '_tiles_amiga.png'):
                     path = target.replace('_tiles.png', extra)
-                    sheet = np.array(Image.open(path).convert('RGBA'))
+                    sheet = np.array(Image.open(resolve(path)).convert('RGBA'))
 
                     for ty in range(0, new.shape[0] - 64, 68):
                         for tx in range(0, new.shape[1] - 64, 68):
@@ -152,7 +208,7 @@ for folder, dirs, files in os.walk(ENHANCED):
                             seen = part[..., 3] > 0
                             part[seen, :3] = new[oy:oy + 64, ox:ox + 64][seen]
 
-                    Image.fromarray(sheet).save(path)
+                    Image.fromarray(sheet).save(written(path))
                     done += 1
         else:
             k = entry['factor']
@@ -161,11 +217,25 @@ for folder, dirs, files in os.walk(ENHANCED):
                 target = os.path.join(HD, path)
                 frame = nb2.crop((x * k, y * k, (x + w) * k, (y + h) * k))
                 if key in XBRZ_ALPHA:
-                    keep_alpha(frame, Image.open(target)).save(target)
+                    picture = keep_alpha(frame, Image.open(resolve(target)))
                 else:
-                    framed(nb2, xbrz, x * k, y * k, w * k, h * k).save(target)
+                    picture = framed(nb2, xbrz, x * k, y * k, w * k, h * k)
+
+                picture.save(written(target))
                 done += 1
 
         print(key, ': in the game')
 
-print('%d pictures of assets_hd replaced' % done)
+# every picture left without a suffix is as x2xbrz.py made it
+
+named = 0
+
+for folder, dirs, files in os.walk(HD):
+    for file in files:
+        if plain(file):
+            path = os.path.join(folder, file)
+            os.replace(path, path[:-len('.png')] + '_xBRZ.png')
+            remove(path + '.import')
+            named += 1
+
+print('%d pictures of assets_hd replaced, %d named _xBRZ' % (done, named))

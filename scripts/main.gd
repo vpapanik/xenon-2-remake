@@ -2705,7 +2705,7 @@ func _gfx(path: String) -> Texture2D:
 	# ENHANCED : the same picture from assets_hd, drawn large but sized as the original
 
 	var texture: Texture2D = load(path)
-	var large := path.replace("res://assets/", "res://assets_hd/")
+	var large := HD_TEXTURE.hd_path(path.replace("res://assets/", "res://assets_hd/"))
 
 	if ResourceLoader.exists(large):
 		return HD_TEXTURE.new(texture, load(large))
@@ -2764,6 +2764,11 @@ func _set_aspect() -> void:
 
 
 func _hd_image(path: String) -> Image:
+
+	# a picture of assets_hd, named _NB2 or _xBRZ by how it was enlarged
+
+	path = HD_TEXTURE.hd_path(path)
+
 	if not ResourceLoader.exists(path):
 		return null
 
