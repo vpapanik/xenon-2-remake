@@ -102,6 +102,8 @@ If you would like to improve one of the remaining `_xBRZ` pictures, you are very
 
 On phones and tablets the browser version shows touch controls, without text. In a level: a joystick at the lower left (or wherever the thumb lands on the left half), the red button fires (hold it for autofire), the green one dives while a dive is left, and the two bars pause. On the menus and in the shop: four arrows and the red button to choose. Turn the phone sideways for a larger picture.
 
+![The guardians of Xenon 2 and their minions](images/poster_guardians.png)
+
 ## Credits
 
 - [Xenon 2: Megablast](https://en.wikipedia.org/wiki/Xenon_2:_Megablast) by [The Bitmap Brothers](https://en.wikipedia.org/wiki/The_Bitmap_Brothers), published by [Image Works](https://en.wikipedia.org/wiki/Image_Works) (1989).
@@ -111,5 +113,3 @@ On phones and tablets the browser version shows touch controls, without text. In
 ## Disclaimer
 
 This is a free, non-commercial fan project, made out of love for the original game. It is not affiliated with, endorsed by or connected in any way to The Bitmap Brothers, Image Works, [Mirrorsoft](https://en.wikipedia.org/wiki/Mirrorsoft), Bomb the Bass, David Whittaker or any current owner of Xenon 2: Megablast. All names, trademarks, graphics, music and other material of the original game belong to their respective owners. Nothing here is for sale.
-
-![The guardians of Xenon 2 and their minions](images/poster_guardians.png)
