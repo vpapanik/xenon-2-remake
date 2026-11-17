@@ -74,6 +74,7 @@ var large_texture: ImageTexture
 var logo: Image
 var large: Array[Image] = []
 var medium: Array[Image] = []
+var digits: Array[Image] = []
 var colours: Array[Color] = []
 var stars: Array = []
 var running := false
@@ -140,6 +141,9 @@ func _ready() -> void:
 
 	for i in 42:
 		medium.append(_load("res://assets/gr/font_medium/%02d.png" % i))
+
+	for i in 10:
+		digits.append(_load("res://assets/gr/hud_digits/%02d.png" % i))
 
 	_load_amiga()
 
@@ -843,7 +847,32 @@ func _intro_screen(item: int) -> void:
 	_centred(0x58, INTRO_BY, large)
 	_centred(0x80, INTRO_ORIGINAL[1 if item == 0 else 0], large)
 	_centred(0x98, INTRO_ENHANCED[1 if item == 1 else 0], large)
+
+	_version()
 	_stars()
+
+
+func _version() -> void:
+
+	# the remake's version (project.godot, set from the release tag by the CI) small at the
+	# lower right : the score digits of the HUD (8 x 8), a dot of two pixels between them
+
+	var version := String(ProjectSettings.get_setting("application/config/version", ""))
+	var width := 0
+
+	for c in version:
+		width += 3 if c == "." else 8
+
+	var x := 320 - 4 - width
+	var y := 200 - 4 - 8
+
+	for c in version:
+		if c == ".":
+			hd.fill_rect(picture, Rect2i(x, y + 6, 2, 2), digits[0].get_pixel(1, 6))
+			x += 3
+		elif c >= "0" and c <= "9":
+			hd.blit_rect(picture, digits[int(c)], Rect2i(0, 0, 8, 8), Vector2i(x, y))
+			x += 8
 
 
 func _intro_logo() -> void:
