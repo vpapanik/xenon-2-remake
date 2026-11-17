@@ -18,7 +18,7 @@ Latest release: **[1.0.7](https://github.com/vpapanik/xenon-2-remake/releases/la
 
 | Platform | File |
 |---|---|
-| Windows (x86_64) | [Xenon2Remake-1.0.7-windows-x86_64.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-windows-x86_64.zip) : unzip and run `Xenon2Remake.exe` |
+| Windows 10 or later (x86_64) | [Xenon2Remake-1.0.7-windows-x86_64.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-windows-x86_64.zip) : unzip and run `Xenon2Remake.exe`. Godot 4 no longer runs on Windows 7 or 8, where the online version may still play in the browser |
 | Linux (x86_64) | [Xenon2Remake-1.0.7-linux-x86_64.tar.gz](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-linux-x86_64.tar.gz) : extract and run `./Xenon2Remake.x86_64` |
 | macOS (Apple Silicon and Intel) | [Xenon2Remake-1.0.7-macos-universal.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-macos-universal.zip) : unzip, then the first time right-click `Xenon 2 remake.app` and choose Open, as the app is not signed by Apple (or run `xattr -cr "Xenon 2 remake.app"`) |
 | Web | [Xenon2Remake-1.0.7-web.zip](https://github.com/vpapanik/xenon-2-remake/releases/download/v1.0.7/Xenon2Remake-1.0.7-web.zip) : unzip and serve the folder with any web server, then open it in the browser |
